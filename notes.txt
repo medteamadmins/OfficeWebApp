@@ -1,0 +1,1 @@
+$sh=New-Object -ComObject Shell.Application;$apps=$sh.NameSpace('shell:AppsFolder');$item=$apps.Items()|Where-Object{$_.Path -match 'OutlookForWindows'}|Select-Object -First 1;$sh.NameSpace([Environment]::GetFolderPath('Desktop')).CopyHere($item)
