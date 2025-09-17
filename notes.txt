@@ -1,1 +1,7 @@
-$sh=New-Object -ComObject Shell.Application;$apps=$sh.NameSpace('shell:AppsFolder');$item=$apps.Items()|Where-Object{$_.Path -match 'OutlookForWindows'}|Select-Object -First 1;$sh.NameSpace([Environment]::GetFolderPath('Desktop')).CopyHere($item)
+$AUMID   = 'Microsoft.OutlookForWindows_8wekyb3d8bbwe!Microsoft.OutlookForWindows'
+$desktop = [Environment]::GetFolderPath('Desktop')
+$ws      = New-Object -ComObject WScript.Shell
+$lnk     = $ws.CreateShortcut((Join-Path $desktop 'Outlook (New).lnk'))
+$lnk.TargetPath = "$env:WINDIR\explorer.exe"
+$lnk.Arguments  = "shell:AppsFolder\$AUMID"
+$lnk.Save()
